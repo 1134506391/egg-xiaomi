@@ -8,6 +8,13 @@ module.exports = appInfo => {
 
   // add your config here
   config.middleware = [];
-
+    //多模板引擎配置
+    config.view = {
+      mapping: {
+        '.html': 'ejs',
+  
+        '.nj': 'nunjucks'
+      },
+    };
   return config;
 };
