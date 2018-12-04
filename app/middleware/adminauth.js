@@ -7,7 +7,7 @@ module.exports = options => {
         console.log(pathname)
         //csrf
         ctx.state.csrf = ctx.csrf;
-        
+        ctx.state.prevPage = ctx.request.headers['referer'];  //获取上一页的url
         if(ctx.session.userinfo){
             ctx.state.userinfo = ctx.session.userinfo;
             await next();

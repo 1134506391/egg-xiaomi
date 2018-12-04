@@ -4,16 +4,40 @@ var BaseController = require('./base.js')
 
 class RoleController extends BaseController {
   async index() {
-    // this.ctx.body = '用户管理';
-    await this.ctx.render('admin/role/index');
+    var result = await this.ctx.model.Role.find({});
+    await this.ctx.render('admin/role/index',{
+      list:result
+    });
   }
   async add() {
-    // this.ctx.body = '用户增加';
     await this.ctx.render('admin/role/add');
   }
+  async doAdd(){
+    console.log(this.ctx.request.body)
+    var role = new this.ctx.model.Role({
+      title:this.ctx.request.body.title,
+      description:this.ctx.request.body.description,
+    })
+    await role.save()
+    await this.success('/admin/role','增加角色成功')
+  }
   async edit() {
-    // this.ctx.body = '用户编辑';
-    await this.ctx.render('admin/role/edit');
+    var id = this.ctx.query.id;
+    var result = await this.ctx.model.Role.find({"_id":id});
+    await this.ctx.render('admin/role/edit',{
+      list:result[0]
+    });
+  }
+
+  async doEdit(){
+    console.log(this.ctx.request.body)
+    var _id = this.ctx.request.body._id;
+    var title = this.ctx.request.body.title;
+    var description = this.ctx.request.body.description;
+    await this.ctx.model.Role.updateOne({"_id":_id},{
+      title,description
+    })
+    await this.success('/admin/role','编辑角色成功')
   }
 }
 
