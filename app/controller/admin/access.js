@@ -1,8 +1,8 @@
 'use strict';
 
-const Controller = require('egg').Controller;
+var BaseController = require('./base.js')
 
-class AccessController extends Controller {
+class AccessController extends BaseController {
   async index() {
     // this.ctx.body = '用户管理';
     await this.ctx.render('admin/access/index');
