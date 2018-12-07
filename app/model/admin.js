@@ -27,7 +27,8 @@ module.exports = app => {
             default: d.getTime()
         },
         is_super: {
-            type: Number
+            type: Number,
+            default:0
         }
     });
 
