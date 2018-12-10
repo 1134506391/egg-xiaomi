@@ -11,10 +11,13 @@ module.exports = app => {
   router.get('/admin/loginOut', controller.admin.login.loginOut);
   router.get('/admin/adminAdd', controller.admin.login.adminAdd);
 
+  //公共方法
   //验证码
   router.get('/admin/verify', controller.admin.base.verify);
   //公共删除
   router.get('/admin/delete', controller.admin.base.delete);
+  //改变状态
+  router.get('/admin/changeStatus', controller.admin.base.changeStatus);
 
   router.get('/admin/access', controller.admin.access.index);
   router.get('/admin/access/add', controller.admin.access.add);
