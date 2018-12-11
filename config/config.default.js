@@ -5,7 +5,8 @@ module.exports = appInfo => {
 
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1543801206350_4176';
-
+  //图片上传地址
+  config.uploadDir='app/public/admin/upload';
   // 中间件
   config.middleware = ['adminauth'];
   config.adminauth = {

@@ -15,6 +15,7 @@ module.exports = app => {
   router.get('/admin/verify', controller.admin.base.verify);  //验证码
   router.get('/admin/delete', controller.admin.base.delete);  //公共删除
   router.get('/admin/changeStatus', controller.admin.base.changeStatus);   //改变状态
+  router.get('/admin/editNum', controller.admin.base.editNum);  //改变排序
   //权限
   router.get('/admin/access', controller.admin.access.index);
   router.get('/admin/access/add', controller.admin.access.add);
@@ -40,9 +41,11 @@ module.exports = app => {
   router.get('/admin/focus', controller.admin.focus.index);
   router.get('/admin/focus/add', controller.admin.focus.add);
   router.post('/admin/focus/doAdd', controller.admin.focus.doAdd);
-//   router.get('/admin/focus', controller.admin.focus.index);
-  router.get('/admin/focus/multi', controller.admin.focus.multi);
-  router.get('/admin/focus/singleUpload', controller.admin.focus.singleUpload); 
-  router.post('/admin/focus/doSingleUpload', controller.admin.focus.doSingleUpload);  
-  router.post('/admin/focus/doMultiUpload', controller.admin.focus.doMultiUpload);  
+  router.get('/admin/focus/edit', controller.admin.focus.edit);
+  router.post('/admin/focus/doEdit', controller.admin.focus.doEdit);
+
+  // router.get('/admin/focus/multi', controller.admin.focus.multi);
+  // router.post('/admin/focus/doSingleUpload', controller.admin.focus.doSingleUpload);  
+  // router.get('/admin/focus/singleUpload', controller.admin.focus.singleUpload); 
+  // router.post('/admin/focus/doMultiUpload', controller.admin.focus.doMultiUpload);  
 };
