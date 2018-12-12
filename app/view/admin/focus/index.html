@@ -36,6 +36,7 @@
                             <th>分类</th>
                             <th>图片</th>
                             <th>跳转地址</th>
+                            <th>创建时间</th>
                             <th>排序</th>
                             <th>状态</th>
                             <th class="text-center">操作</th>
@@ -65,6 +66,7 @@
                             <td>
                                 <%= list[i].link %>
                             </td>
+                            <td><%= helper.formatTime(list[i].add_time) %></td>
                             <td class="text-center"><span onclick="app.editNum(this,'Focus','sort','<%=list[i]._id%>')"><%=list[i].sort%></span></td>
                             <td class="text-center">
                                 <%if(list[i].status==1){%>
