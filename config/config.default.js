@@ -37,5 +37,9 @@ module.exports = appInfo => {
       options: {},
     }
   };
+    //配置表单数量
+    config.multipart = {
+      fields: '50'
+   };
   return config;
 };

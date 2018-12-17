@@ -4,6 +4,7 @@ const md5 = require('md5');
 const sd = require('silly-datetime');
 const path = require('path');
 const mkdirp = require('mz-modules/mkdirp');
+const Jimp = require("jimp");  //生成缩略图的模块
 const Service = require('egg').Service;
 
 class ToolsService extends Service {
@@ -42,6 +43,20 @@ class ToolsService extends Service {
         saveDir:uploadDir.slice(3).replace(/\\/g,'/')
       }
   }
+
+  async jimpImg(target){
+    //上传图片成功以后生成缩略图
+    Jimp.read(target, (err, lenna) => {
+     if (err) throw err;  		
+           lenna.resize(200, 200) // 尺寸
+               .quality(90) // 质量                 
+               .write(target+'_200x200'+path.extname(target)); // save
+
+           lenna.resize(400, 400) // 尺寸
+               .quality(90) // 质量                   
+               .write(target+'_400x400'+path.extname(target)); // save
+     });
+ }
 }
 
 module.exports = ToolsService;
