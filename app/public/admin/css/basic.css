@@ -4,6 +4,48 @@ ul{
     padding: 0px;
 }
 
+.fr{
+
+    float: right;
+}
+
+.fl{
+
+    float: left;
+}
+
+.clear::after{
+
+    clear: both;
+    content: '';
+
+    height: 0px;
+    display: block;
+
+
+}
+
+.input{
+
+    width:600px;
+}
+
+
+.form_input span{
+    display: inline-block;
+
+    width: 100px;
+    text-align: right;
+
+}
+
+
+
+.panel-heading span{
+    position: relative;
+    top:10px;
+}
+
 .aside h4{
 	margin-top: 0px;
 	font-size: 15px;
@@ -137,3 +179,38 @@ input[type=file]{
 }
 
 
+
+/*商品详情*/
+
+.goods_content{
+
+    border: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.nav-tabs{
+
+    background: #eee;
+}
+
+
+.tab-content{
+
+    position: relative;
+
+    top:-24px;
+    background: #fff;
+
+    padding-top:20px;
+ 
+
+
+}
+
+.goods_content_btn{
+    position: relative;
+
+    left:50px;
+
+    bottom: 20px;
+}
