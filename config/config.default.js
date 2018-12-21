@@ -31,7 +31,7 @@ module.exports = appInfo => {
   };
 
   //数据库
-  exports.mongoose = {
+  config.mongoose = {
     client: {
       url: 'mongodb://admin:123456@127.0.0.1/eggxiaomi',
       options: {},
@@ -41,5 +41,16 @@ module.exports = appInfo => {
     config.multipart = {
       fields: '50'
    };
+   config.security = {
+    csrf: {
+        // 判断是否需要 ignore 的方法，请求上下文 context 作为第一个参数
+        ignore: ctx => {
+          if(ctx.request.url=='/admin/goods/goodsUploadImage' || ctx.request.url=='/admin/goods/goodsUploadPhoto'){
+            return true;
+          }
+          return false;
+        }      
+      }
+    }
   return config;
 };

@@ -1,0 +1,80 @@
+<%- include ../public/page_header.html %>
+
+            <!-- 分页插件 -->
+            <script src="/public/admin/js/jqPaginator.js"></script>
+
+            <div class="panel panel-default">              
+                    <div class="panel-heading clear">
+                        <span>文章分类列表</span> <a href="/admin/article/add" class="btn btn-primary fr">增加文章</a>
+                    </div>
+                    <div class="panel-body">
+            <!--
+                列表展示
+            -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr class="th">
+                                <th>文章名称</th>
+                                <th>文章图片</th>                                
+                                <th>所属分类</th>   
+                                <th>增加日期</th>   
+                                <th class="text-center">排序</th> 
+                                <th class="text-center">状态</th>
+                                <th class="text-center">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                    <%for(var i=0;i<list.length;i++){%>
+                                        <tr>
+                                                <td><%=list[i].title%></td>      
+                                                <td><img class="pic" src="<%=list[i].article_img%>" /></td> 
+
+                                                <td><%=list[i].catelist[0].title%></td>      
+                                                <td><%=helper.formatTime(list[i].add_time)%></td>         
+                                                <td class="text-center"><span onclick="app.editNum(this,'Article','sort','<%=list[i]._id%>')"><%=list[i].sort%></span></td>
+                                                <td class="text-center">
+        
+                                                    <%if(list[i].status==1){%>
+        
+                                                            <img src="/public/admin/images/yes.gif" onclick="app.changeStatus(this,'Article','status','<%=list[i]._id%>')" />
+        
+                                                    <%}else{%>
+                                                            <img src="/public/admin/images/no.gif" onclick="app.changeStatus(this,'Article','status','<%=list[i]._id%>')" />
+                                                    <%}%>        
+                                                </td>                                                                    
+                                                <td class="text-center">　<a href="/admin/article/edit?id=<%=list[i]._id%>">修改</a>　<a class="delete" href="/admin/delete?model=Article&id=<%=list[i]._id%>">删除</a></td>
+                                        </tr>            
+                                    <%}%>
+                                
+                            </tbody>
+                        </table>
+
+
+                        <div id="page" class="pagination fr"></div>
+                    </div>
+                </div>
+            </div>
+
+
+            
+            <script>
+            
+                $('#page').jqPaginator({
+                    totalPages: <%=totalPages%>,
+                    visiblePages: 8,
+                    currentPage:  <%=page%>,
+                    onPageChange: function (num, type) {
+                        console.log('当前第' + num + '页',type);
+
+                        if(type=='change'){
+
+                        location.href="/admin/article?page="+num;
+                        }
+                    }
+                });
+            
+            </script>
+
+</body>
+</html>
