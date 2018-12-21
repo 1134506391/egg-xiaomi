@@ -8,7 +8,7 @@ class NavController extends BaseController {
 
 
         var page=this.ctx.request.query.page || 1;
-        var pageSize=5;       
+        var pageSize=2;       
         //获取当前数据表的总数量
         var totalNum=await this.ctx.model.Nav.find({}).count();
         //分页查询
@@ -52,18 +52,17 @@ class NavController extends BaseController {
     
         await this.ctx.render('admin/nav/edit',{
 
-          list:result[0]
+          list:result[0],
+
         });
         
       } 
 
       async doEdit() {
-
-      
         var _id=this.ctx.request.body._id;       
-
+        var prevPage = this.ctx.request.body.prevPage;
         await this.ctx.model.Nav.updateOne({"_id":_id},this.ctx.request.body)
-         await this.success('/admin/nav','编辑导航成功');     
+         await this.success(prevPage,'编辑导航成功');     
 
       } 
 }

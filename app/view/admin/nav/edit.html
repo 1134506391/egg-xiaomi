@@ -10,7 +10,7 @@
                 <form action="/admin/nav/doEdit" method="post" >
                     <ul class="form_input">
                         <input type="hidden" name="_csrf" value="<%=csrf%>">
-
+                        <input type="hidden" name="prevPage" value="<%= prevPage %>">
                         <input type="hidden" name="_id" value="<%=list._id%>"/>
                         <li>  <span>导航名称:</span> <input type="text" name="title" value="<%=list.title%>"/></li>
 

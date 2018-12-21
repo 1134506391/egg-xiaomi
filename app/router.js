@@ -110,4 +110,8 @@ module.exports = app => {
    router.get('/admin/article/edit', controller.admin.article.edit);
    router.post('/admin/article/doEdit', controller.admin.article.doEdit);
    router.post('/admin/article/doAdd', controller.admin.article.doAdd);
+
+   
+   router.get('/admin/setting', controller.admin.setting.index);
+   router.post('/admin/setting/doEdit', controller.admin.setting.doEdit);
 };

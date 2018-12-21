@@ -7,18 +7,40 @@ const pump = require('mz-modules/pump');
 
 
 class GoodsController extends BaseController {
-  async index() { 
-    var page=this.ctx.request.query.page || 1;
-    var pageSize=2;
-    //获取当前数据表的总数量
-    var totalNum=await this.ctx.model.Goods.find({}).count();
-    var goodsResult=await this.ctx.model.Goods.find({}).skip((page-1)*pageSize).limit(pageSize);
-     await this.ctx.render('admin/goods/index',{
-       list:goodsResult,
-       totalPages:Math.ceil(totalNum/pageSize),
-       page:page
-     });
- }       
+      async index() { 
+        
+
+         var page=this.ctx.request.query.page || 1;
+
+
+
+         var keyword=this.ctx.request.query.keyword;
+
+
+         //注意
+         var json={};
+         if(keyword){
+            json=Object.assign({"title":{$regex:new RegExp(keyword)}});
+         }
+
+
+         var pageSize=3;
+        
+         //获取当前数据表的总数量
+
+         var totalNum=await this.ctx.model.Goods.find(json).count();
+
+         var goodsResult=await this.ctx.model.Goods.find(json).skip((page-1)*pageSize).limit(pageSize);
+         
+      
+          await this.ctx.render('admin/goods/index',{
+            list:goodsResult,
+            totalPages:Math.ceil(totalNum/pageSize),
+            page:page,
+            keyword:keyword
+
+          });
+      }     
     
       async add() {
 
@@ -104,18 +126,20 @@ class GoodsController extends BaseController {
         // 5bbb68dcfe498e2346af9e4a,5bbb68effe498e2346af9e4b,5bc067d92e5f889dc864aa96
 
 
-        var colorArrTemp=goodsResult[0].goods_color.split(',');
+        if(goodsResult[0].goods_color.length>0){
+            var colorArrTemp=goodsResult[0].goods_color.split(',');
+            // console.log(colorArrTemp);
+            var goodsColorArr=[];
 
-        // console.log(colorArrTemp);
-
-        var goodsColorArr=[];
-
-        colorArrTemp.forEach((value)=>{
-          goodsColorArr.push({"_id":value})
-        })
-        var goodsColorReulst=await this.ctx.model.GoodsColor.find({
-          $or:goodsColorArr
-        })
+            colorArrTemp.forEach((value)=>{
+              goodsColorArr.push({"_id":value})
+            })
+            var goodsColorReulst=await this.ctx.model.GoodsColor.find({
+              $or:goodsColorArr
+            })
+        }else{
+          var goodsColorReulst=[];
+        }
 
 
         // console.log(colorReulst);
@@ -171,7 +195,8 @@ class GoodsController extends BaseController {
           goods:goodsResult[0],
           goodsAtts:goodsAttsStr,
           goodsImage:goodsImageResult,
-          goodsColor:goodsColorReulst
+          goodsColor:goodsColorReulst,
+          prevPage:this.ctx.state.prevPage
 
         });
 
@@ -283,8 +308,7 @@ class GoodsController extends BaseController {
             if (!stream.filename) {          
               break;
             }       
-            let fieldname = stream.fieldname;  //file表单的名字
-  
+            let fieldname = stream.fieldname;  //file表单的名字  
             //上传图片的目录
             let dir=await this.service.tools.getUploadFile(stream.filename);
             let target = dir.uploadDir;
@@ -364,7 +388,10 @@ class GoodsController extends BaseController {
 
         }
 
-        await this.success('/admin/goods','修改商品数据成功');
+
+        var prevPage=parts.field.prevPage;
+
+        await this.success(prevPage,'修改商品数据成功');
       
     }  
 
@@ -489,6 +516,9 @@ class GoodsController extends BaseController {
 
       //注意  图片要不要删掉   fs模块删除以前当前数据对应的图片
       
+
+
+
       var result= await this.ctx.model.GoodsImage.deleteOne({"_id":goods_image_id});            //注意写法
 
       if(result){
