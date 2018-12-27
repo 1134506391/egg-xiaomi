@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+        <meta name="author" content="order by dede58.com"/>
+		<title>小米商城</title>
+		<link rel="stylesheet" type="text/css" href="/public/default/css/style.css">
+		<link rel="stylesheet" href="/public/default/css/swiper.min.css">
+
+		<script src="/public/default/js/jquery-1.10.1.js"></script>		
+		<script src="/public/default/js/swiper.min.js"></script>
+		<script src="/public/default/js/base.js"> </script>
+
+
+	</head>
+	<body>
+	<!-- start header -->
+		<header>
+			<div class="top center">
+				<div class="left fl">
+					<ul class="clearfix">
+
+
+						<%for(var i=0;i<topNav.length;i++){ %>
+
+							<li><a href="<%=topNav[i].link%>"  <% if(topNav[i].is_opennew==2){%>target="_blank" <%}%> ><%=topNav[i].title%></a></li>
+						<%}%>
+											
+					</ul>
+				</div>
+				<div class="right fr">
+					<div class="gouwuche fr"><a href="">购物车</a></div>
+					<div class="fr">
+						<ul>
+							<li><a href="./login.html" target="_blank">登录</a></li>
+							<li>|</li>
+							<li><a href="./register.html" target="_blank" >注册</a></li>
+							<li>|</li>
+							<li><a href="">消息通知</a></li>
+						</ul>
+					</div>
+					<div class="clear"></div>
+				</div>
+				<div class="clear"></div>
+			</div>
+		</header>

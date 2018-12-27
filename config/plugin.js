@@ -16,3 +16,8 @@ exports.mongoose = {
   enable: true,
   package: 'egg-mongoose',
 };
+
+exports.redis = {
+  enable: false,
+  package: 'egg-redis',
+};
